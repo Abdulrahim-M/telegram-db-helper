@@ -5,9 +5,11 @@
 
 ## Overview
 
-`telegram-db-helper` is a lightweight Telegram bot designed to interact with your database directly from Telegram. It allows users to search records, log messages,and export data—all from within a chat interface.
+`telegram-db-helper` is a lightweight Telegram bot built with [python-telegram-bot](https://python-telegram-bot.org/) to interact with your database directly from Telegram. By default, it is built with SQLite in mind, making it easy to set up and use locally.
 
-The bot is ideal for small teams, admins, or anyone who wants to manage and query a database without leaving Telegram.
+All database logic is contained in the `database` folder, so you can easily adjust it for other databases like MySQL or PostgreSQL if needed.
+
+The bot allows users to search records, log messages, export data, and manage templates—all from within a chat interface. It is ideal for small teams, admins, or anyone who wants to manage and query a database without leaving Telegram.
 
 ## Features
 
@@ -16,6 +18,12 @@ The bot is ideal for small teams, admins, or anyone who wants to manage and quer
 * 📤 **Export:** Export database data with `/export`.
 * ✅ **Interactive Templates:** Conversation handlers with inline buttons for easy workflow.
 * 🛠 **Lightweight and Extendable:** Easy to add more commands and features.
+
+## Requirements
+
+* Python 3.9+
+* [python-telegram-bot](https://pypi.org/project/python-telegram-bot/) (v21 or later recommended)
+* SQLite (default) or any compatible database (MySQL/PostgreSQL with adapter)
 
 ## Installation
 

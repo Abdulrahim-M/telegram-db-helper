@@ -1,0 +1,12 @@
+{
+    "start_message": "⚙️ Usage instructions:\n`/find`:\nEnter `\u200e/find` followed by the student ID or university number to get student data.\n`/export`:\nTo export all data in one of the available formats.\n`/template`:\nTo create a message in a specific format, which works as a template that can be applied to extract all data.",
+    "template_message": "Write the format you want to extract data in using:\n• `$name$` => name \n• `$index$` => Index \n• `$unid$` => university ID \n• `$email$` => Email \n• `$phone$` => Phone number\n• `$address$` => Address",
+    "export_text": "File type:",
+
+    "cancelled": "Cancelled",
+    "cancel": "cancel",
+
+    "find_command_text": "Usage: /find <name or Index or phone>",
+    "find_command_output": "🧾 *Data:* \n*Name:* {}\n*Index:* {}\n*unId:* {}\n*Email:* {}\n*Phone:* {}\n*Address:* {}",
+    "find_command_notfound": "No matching entries found."
+}

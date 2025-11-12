@@ -10,8 +10,8 @@ def search_item(query: str):
         c.execute("""
             SELECT name, index_id, unId, email, phone, address
             FROM students
-            WHERE name LIKE ? OR index_id LIKE ? OR phone LIKE ?
-        """, (f"%{query}%", f"%{query}%", f"%{query}%"))
+            WHERE name LIKE ? OR index_id LIKE ? OR phone LIKE ? OR unId LIKE ?
+        """, (f"%{query}%", f"%{query}%", f"%{query}%", f"%{query}%"))
         return c.fetchall()
 
 def all_items():

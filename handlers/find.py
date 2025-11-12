@@ -3,10 +3,11 @@ from telegram.ext import ContextTypes
 from telegram.constants import ParseMode
 from database.db import search_item
 from utils.broadcaster import broadcast
+from utils.fetch_message import get_message
 
 async def find(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not context.args:
-        m = "Usage: /find <name or Index or phone>"
+        m = get_message("find_command_text", update.message.chat.id)
         await update.message.reply_text(m)
         await broadcast("bot_sent", update.message.chat.id, m)
         return
@@ -16,12 +17,11 @@ async def find(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     if results:
         reply = "\n\n".join(
-            [f"🧾 *Data:* \n*Name:* {r[0]}\n*Index:* {r[1]}\n*unId:* {r[2]}"
-             f"\n*Email:* {r[3]}\n*Phone:* {r[4]}\n*Address:* {r[5]}"
+            [get_message("find_command_output", update.message.chat.id).format(*r)
              for r in results]
         )
     else:
-        reply = "No matching entries found."
+        reply = get_message("find_command_notfound", update.message.chat.id)
 
     await update.message.reply_text(reply, parse_mode=ParseMode.MARKDOWN)
-    await broadcast("bot_sent", update.message.chat.id, parse_mode=ParseMode.MARKDOWN)
+    await broadcast("bot_sent", update.message.chat.id, reply)

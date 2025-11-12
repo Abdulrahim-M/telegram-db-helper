@@ -4,19 +4,13 @@ from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandle
 from telegram.constants import ParseMode
 from database.db import all_items
 from utils.broadcaster import broadcast
+from utils.fetch_message import get_message
 from utils.text_replace import replace_data
 
 ASKING = 1
 
 async def template_all(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    m = """أكتب الصيغة التي تريد استخراج البيانات فيها بإستخدام:
-• `$name$`    => name
-• `$index$`   => Index
-• `$unid$`    => university ID
-• `$email$`   => Email
-• `$phone$`   => Phone number
-• `$address$` => Address
-"""
+    m = get_message("template_message", update.message.chat.id)
     keyboard = [[InlineKeyboardButton("Cancel", callback_data='cancel')]]
     reply_markup = InlineKeyboardMarkup(keyboard)
 
@@ -50,7 +44,7 @@ async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if query.data != "cancel":
         return
     
-    await query.message.edit_text("Cancelled.")
+    await query.message.edit_text(get_message("cancelled", query.message.chat.id))
     await broadcast("bot_sent", query.message.chat.id, "Cancelled.")
     return ConversationHandler.END
 
