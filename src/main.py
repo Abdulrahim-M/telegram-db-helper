@@ -26,7 +26,7 @@ def main():
     app.add_handler(CommandHandler("select_language", language_selector))
     app.add_handler(get_conv_handler())
     app.add_handler(CommandHandler("export", export))
-    
+
     app.add_handler(CallbackQueryHandler(language_callback, pattern=r"^lang_"))
     app.add_handler(CallbackQueryHandler(export_file, pattern=r"^export_"))
 

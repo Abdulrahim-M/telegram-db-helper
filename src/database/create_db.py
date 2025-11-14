@@ -1,7 +1,8 @@
 import sqlite3
+from config import DB_PATH
 
 def laod_database():
-    conn = sqlite3.connect("data/data.db")
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
 
     c.execute("""
@@ -12,7 +13,7 @@ def laod_database():
         unId TEXT,
         email TEXT,
         phone TEXT,
-        address TEXT 
+        address TEXT
     )
     """)
 

@@ -1,10 +1,11 @@
 
+from config import DB_PATH
 import sqlite3
 from datetime import datetime, timezone
 from telegram import Update
 from telegram.ext import ContextTypes
 
-conn = sqlite3.connect("data/data.db", check_same_thread=False)
+conn = sqlite3.connect(DB_PATH, check_same_thread=False)
 cursor = conn.cursor()
 
 async def log_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -55,4 +56,3 @@ async def log_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         forwarded_from,
     ))
     conn.commit()
-
