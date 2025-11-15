@@ -5,8 +5,7 @@ from datetime import datetime, timezone
 from telegram import Update
 from telegram.ext import ContextTypes
 
-conn = sqlite3.connect(DB_PATH, check_same_thread=False)
-cursor = conn.cursor()
+from services.selector import DB
 
 async def log_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not update.message:
@@ -42,17 +41,4 @@ async def log_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         msg_type = "other"
         message_content = "[Unsupported type]"
 
-    cursor.execute("""
-    INSERT INTO chat_logs (chat_id, user_id, username, message, type, timestamp, reply_to, forwarded_from)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-    """, (
-        chat_id,
-        user_id,
-        username,
-        message_content,
-        msg_type,
-        datetime.now(timezone.utc).isoformat(),
-        reply_to,
-        forwarded_from,
-    ))
-    conn.commit()
+    DB().log_user_message(chat_id, user_id, username, message_content, msg_type, reply_to, forwarded_from)

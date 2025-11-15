@@ -4,11 +4,11 @@ import io
 import csv
 import pandas as pd
 from fpdf import FPDF
-from database.db import all_items
+from services.selector import DB
 
 def export_xlsx():
     output = io.BytesIO()
-    df = pd.DataFrame(all_items(), columns=["Name", "ID", "unId", "Email", "Phone", "Address"])
+    df = pd.DataFrame(DB().all_items(), columns=["Name", "ID", "unId", "Email", "Phone", "Address"])
     with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
         df.to_excel(writer, index=False, sheet_name="Data")
     output.seek(0)
@@ -18,13 +18,13 @@ def export_csv():
     buffer = io.StringIO()
     writer = csv.writer(buffer)
     writer.writerow(["Name", "ID", "unId", "Email", "Phone", "Address"])
-    writer.writerows(all_items())
+    writer.writerows(DB().all_items())
     buffer.seek(0)
     return io.BytesIO(buffer.getvalue().encode('utf-8'))  # Telegram wants bytes
 
 def export_txt():
     buffer = io.StringIO()
-    for r in all_items():
+    for r in DB().all_items():
         buffer.write(f"Name: {r[0]}\nID: {r[1]}\nunId: {r[2]}\nEmail: {r[3]}\nPhone: {r[4]}\nAddress: {r[5]}\n")
         buffer.write("-" * 40 + "\n")
     buffer.seek(0)
@@ -48,7 +48,7 @@ def export_pdf():
     pdf.ln()
 
     # Draw rows
-    for row in all_items():
+    for row in DB().all_items():
         for i, item in enumerate(row):
             text = str(item)
 

@@ -2,10 +2,10 @@ from io import BytesIO
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandler, ContextTypes, ConversationHandler, MessageHandler, filters
 from telegram.constants import ParseMode
-from database.db import all_items
 from utils.broadcaster import broadcast
 from utils.fetch_message import get_message
 from utils.text_replace import replace_data
+from services.selector import DB
 
 ASKING = 1
 
@@ -21,12 +21,14 @@ async def template_all(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def replace_all(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_input = update.message.text
-    data = all_items()
+    data = DB().all_items().as_dict()
     num = 1
     result = ""
+    print(data)
+
 
     for r in data:
-        text = replace_data(user_input, r)
+        text = replace_data(user_input, [str(v) for v in r.values()])
         result += f"\n\n{num}. " + text
         num += 1
 
@@ -43,7 +45,7 @@ async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     if query.data != "cancel":
         return
-    
+
     await query.message.edit_text(get_message("cancelled", query.message.chat.id))
     await broadcast("bot_sent", query.message.chat.id, "Cancelled.")
     return ConversationHandler.END

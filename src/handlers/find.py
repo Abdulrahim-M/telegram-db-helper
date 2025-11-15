@@ -1,7 +1,8 @@
 from telegram import Update
 from telegram.ext import ContextTypes
 from telegram.constants import ParseMode
-from database.db import search_item
+from telegram.helpers import escape_markdown
+from services.selector import DB
 from utils.broadcaster import broadcast
 from utils.fetch_message import get_message
 
@@ -13,7 +14,7 @@ async def find(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
 
     query = " ".join(context.args)
-    results = search_item(query)
+    results = DB().search_item(query).as_list()
 
     if results:
         reply = "\n\n".join(

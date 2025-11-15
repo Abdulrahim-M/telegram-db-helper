@@ -16,9 +16,9 @@ logs/
 models/
 ressources/
 .ruff_cache
-data/*.h5
 venv/
 .venv/
+/data/
 
 ################################
 ########### PYTHON #############
@@ -133,8 +133,9 @@ venv.bak/
 *.isorted
 
 ################################
-########### VS CODE ############
+########### IDE ############
 ################################
+.idea
 .vscode/
 *.code-workspace
 .history

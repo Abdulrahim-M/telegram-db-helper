@@ -10,5 +10,3 @@ def load_locales():
             lang_code = file.split(".")[0]
             with open(os.path.join("locales", file), "r", encoding="utf-8") as f:
                 LOCALES[lang_code] = json.load(f)
-
-load_locales()

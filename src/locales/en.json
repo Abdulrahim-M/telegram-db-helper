@@ -8,5 +8,11 @@
 
     "find_command_text": "Usage: /find <name or Index or phone>",
     "find_command_output": "🧾 *Data:* \n*Name:* {}\n*Index:* {}\n*unId:* {}\n*Email:* {}\n*Phone:* {}\n*Address:* {}",
-    "find_command_notfound": "No matching entries found."
+    "find_command_notfound": "No matching entries found.",
+
+    "start_ask_index": "Please enter your index: ",
+    "start_index_not_found": "Record not found. Please enter a valid index.",
+    "start_ask_loop": "What is your {}?",
+    "start_finish_new": "Data Saved!",
+    "start_finish_old": "Data already saved!"
 }
